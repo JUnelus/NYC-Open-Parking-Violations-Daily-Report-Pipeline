@@ -1,0 +1,40 @@
+# Version control
+.git/
+.gitignore
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets / local config
+.env
+.envrc
+
+# Test suite (not needed at runtime)
+tests/
+fixtures_sample_payload.json
+
+# Raw/processed data files (large, not needed in image; mount as volume at runtime)
+data/raw/
+data/processed/
+data/analytics/
+
+# Historical reports
+reports/
+
+# IDE / editor settings
+.idea/
+.vscode/
+
+# CI artifacts
+*.log
+
