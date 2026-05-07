@@ -290,7 +290,7 @@ Supported triggers:
 - the percentage change in total record count exceeds the threshold
 - absolute net record count change exceeds the threshold
 - the percentage change in open amount due exceeds the threshold
-- absolute open amount due change exceeds the threshold
+- the absolute open amount due change exceeds the threshold
 
 Configure alerts in `.env`:
 
@@ -404,4 +404,4 @@ Latest report file: `/home/runner/work/NYC-Open-Parking-Violations-Daily-Report-
 
 - export to cloud storage (S3, GCS)
 - deploy dashboard to managed runtime (e.g., Streamlit Cloud, Azure Container Apps)
-- add advanced anomaly ensembles (seasonality-aware + isolation-based methods)
+- add advanced anomaly ensembles (seasonality-aware and isolation-based methods)
