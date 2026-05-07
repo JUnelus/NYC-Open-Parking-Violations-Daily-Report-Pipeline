@@ -12,7 +12,7 @@ Report Date: 2026-05-07
 ## Executive Summary
 
 - Total Records Pulled: 50,000
-- New Records Pulled Since Yesterday: 50,000
+- New Records Pulled Since Yesterday: 0
 - Open Amount Due: $636.94
 - Total Fine Amount: $4,925,115.00
 - Total Penalties: $210,605.00
@@ -20,11 +20,11 @@ Report Date: 2026-05-07
 - Total Payments Recorded: $4,933,742.18
 - Total Camera Violations: 0
 - Total Non-Camera Parking Violations: 50,000
-- Previous Snapshot Record Count: 5
-- Previous Snapshot Open Amount Due: $420.00
-- Resolved or Missing Since Yesterday: 5
-- Net Record Change: 49,995
-- Open Amount Due Change: $216.94
+- Previous Snapshot Record Count: 50,000
+- Previous Snapshot Open Amount Due: $636.94
+- Resolved or Missing Since Yesterday: 0
+- Net Record Change: 0
+- Open Amount Due Change: $0.00
 
 ## Top Violation Types
 
@@ -138,18 +138,18 @@ Report Date: 2026-05-07
 
 ## Biggest Day-over-Day Changes
 
-| Violation Type                 | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
-| ------------------------------ | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
-| MOBILE BUS LANE VIOLATION      | 43,616.00     | 125.00             | 0.00           | 0.00                | 43,616.00    | 125.00            |
-| NO STAND TAXI/FHV RELIEF STAND | 2,098.00      | 0.00               | 0.00           | 0.00                | 2,098.00     | 0.00              |
-| MISUSE PARKING PERMIT          | 1,439.00      | 0.00               | 0.00           | 0.00                | 1,439.00     | 0.00              |
-| FRAUDULENT USE PARKING PERMIT  | 1,185.00      | 0.00               | 0.00           | 0.00                | 1,185.00     | 0.00              |
-| NO PARKING-EXC. DSBLTY PERMIT  | 583.00        | 191.94             | 0.00           | 0.00                | 583.00       | 191.94            |
-| NO STANDING-FOR HIRE VEH STND  | 421.00        | 0.00               | 0.00           | 0.00                | 421.00       | 0.00              |
-| WEIGH IN MOTION VIOLATION      | 374.00        | 0.00               | 0.00           | 0.00                | 374.00       | 0.00              |
-| PCKP DSCHRGE IN PRHBTD ZONE    | 180.00        | 0.00               | 0.00           | 0.00                | 180.00       | 0.00              |
-| Unknown                        | 66.00         | 0.00               | 0.00           | 0.00                | 66.00        | 0.00              |
-| MISCELLANEOUS                  | 6.00          | 0.00               | 0.00           | 0.00                | 6.00         | 0.00              |
+| Violation Type                | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
+| ----------------------------- | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
+| ANGLE PARKING                 | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
+| BEYOND MARKED SPACE           | 1             | 45.00              | 1              | 45.00               | 0            | 0.00              |
+| EXPIRED MUNI METER            | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
+| FIRE HYDRANT                  | 3             | 0.00               | 3              | 0.00                | 0            | 0.00              |
+| FRAUDULENT USE PARKING PERMIT | 1185          | 0.00               | 1185           | 0.00                | 0            | 0.00              |
+| FRONT OR BACK PLATE MISSING   | 3             | 75.00              | 3              | 75.00               | 0            | 0.00              |
+| INSP. STICKER-EXPIRED/MISSING | 2             | 0.00               | 2              | 0.00                | 0            | 0.00              |
+| MISCELLANEOUS                 | 6             | 0.00               | 6              | 0.00                | 0            | 0.00              |
+| MISUSE PARKING PERMIT         | 1439          | 0.00               | 1439           | 0.00                | 0            | 0.00              |
+| MOBILE BUS LANE VIOLATION     | 43616         | 125.00             | 43616          | 125.00              | 0            | 0.00              |
 
 ## Data Quality Checks
 
@@ -164,9 +164,7 @@ Report Date: 2026-05-07
 
 ## Significant Change Alerts
 
-- [HIGH] Record count changed by 999900.00% (previous=5, current=50,000).
-- [HIGH] Absolute net record change is 49,995, which exceeds threshold 5,000.
-- [MEDIUM] Open amount due changed by 51.65% (previous=$420.00, current=$636.94).
+_No significant alerts triggered for this run._
 
 ## QA Notes
 

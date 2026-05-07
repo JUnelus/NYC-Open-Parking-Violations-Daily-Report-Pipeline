@@ -1,2 +1,2 @@
 report_date,total_records_pulled,total_open_amount_due,total_fine_amount,total_penalty_amount,total_interest_amount,total_payment_amount,total_camera_violations,total_non_camera_parking_violations,new_records_pulled,resolved_or_missing_since_yesterday,net_record_change,previous_record_count,previous_open_amount_due,open_amount_due_change,checks_passed,checks_failed
-2026-05-07,50000,636.94,4925115.0,210605.0,1097.0800000000002,4933742.180000001,0,50000,50000,5,49995,5,420.0,216.94000000000005,5,1
+2026-05-07,50000,636.94,4925115.0,210605.0,1097.0800000000002,4933742.180000001,0,50000,0,0,0,50000,636.94,0.0,5,1
