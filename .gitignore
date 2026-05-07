@@ -203,6 +203,9 @@ cython_debug/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
+# Partitioned parquet output (generated per-run, too many files to track in git)
+data/processed/partitioned/
+
 # Ruff stuff:
 .ruff_cache/
 

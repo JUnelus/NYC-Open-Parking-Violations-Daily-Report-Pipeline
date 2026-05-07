@@ -57,7 +57,7 @@ def transform_violations(df: pd.DataFrame, report_date: date | None = None) -> p
     for column in NUMERIC_COLUMNS:
         cleaned[column] = pd.to_numeric(cleaned[column], errors="coerce").fillna(0.0)
 
-    cleaned["issue_date"] = pd.to_datetime(cleaned["issue_date"], errors="coerce")
+    cleaned["issue_date"] = pd.to_datetime(cleaned["issue_date"], format="mixed", errors="coerce")
     cleaned["is_camera_violation"] = cleaned["violation"].isin(CAMERA_VIOLATIONS)
     cleaned["report_date"] = pd.Timestamp(report_date or date.today())
 
