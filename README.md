@@ -376,11 +376,11 @@ This project is portfolio-ready because it demonstrates:
 <!-- LATEST_RUN_START -->
 ## Latest Automated Run
 
-- Report Date: 2026-05-06
-- Total Records Pulled: 5
-- Open Amount Due: $420.00
-- New Records Pulled: 0
-- Net Record Change: 0
+- Report Date: 2026-05-07
+- Total Records Pulled: 50,000
+- Open Amount Due: $636.94
+- New Records Pulled: 50,000
+- Net Record Change: 49,995
 - Quality Checks Passed: 5
 - Quality Checks Failed: 1
 
@@ -391,7 +391,7 @@ This project is portfolio-ready because it demonstrates:
 ![Top Agencies](reports/charts/top_agencies.png)
 ![Camera vs Parking](reports/charts/camera_vs_parking.png)
 
-Latest report file: `C:/Users/big_j/PycharmProjects/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
+Latest report file: `/home/runner/work/NYC-Open-Parking-Violations-Daily-Report-Pipeline/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
 <!-- LATEST_RUN_END -->
 
 
