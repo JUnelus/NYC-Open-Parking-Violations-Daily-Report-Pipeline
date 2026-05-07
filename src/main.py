@@ -119,6 +119,7 @@ def save_outputs(
     markdown_report: str,
     analytics_outputs: dict[str, pd.DataFrame],
     alert_log_df: pd.DataFrame,
+    quality_checks: list[dict] | None = None,
 ) -> None:
     stamp = report_date.isoformat()
 
@@ -174,7 +175,7 @@ def save_outputs(
     dated_report_path.write_text(markdown_report, encoding="utf-8")
 
     readme_path = config.data_dir.parent / "README.md"
-    upsert_latest_run_section(readme_path, summary_df, latest_report_path)
+    upsert_latest_run_section(readme_path, summary_df, latest_report_path, quality_checks=quality_checks)
 
 
 
@@ -281,6 +282,7 @@ def main() -> None:
         markdown_report,
         analytics_outputs,
         alert_log_df,
+        quality_checks,
     )
 
     print(f"Saved {len(transformed_df):,} transformed records.")

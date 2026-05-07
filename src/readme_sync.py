@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 
@@ -9,11 +10,26 @@ LATEST_MARKER_END = "<!-- LATEST_RUN_END -->"
 
 
 
-def build_latest_run_section(summary_df: pd.DataFrame, report_path: Path, charts_relative_dir: str = "reports/charts") -> str:
+def build_latest_run_section(
+    summary_df: pd.DataFrame,
+    report_path: Path,
+    charts_relative_dir: str = "reports/charts",
+    quality_checks: list[dict[str, Any]] | None = None,
+) -> str:
     if summary_df.empty:
         body = "_No latest run data available._"
     else:
         row = summary_df.iloc[0]
+        checks_failed = int(row.get("checks_failed", 0))
+
+        failed_lines: list[str] = []
+        if checks_failed > 0 and quality_checks:
+            failed_checks = [c for c in quality_checks if c.get("result") == "FAIL"]
+            if failed_checks:
+                failed_lines = ["", "### Quality Check Failures", ""]
+                for c in failed_checks:
+                    failed_lines.append(f"- **{c['check']}**: {c['details']}")
+
         body = "\n".join(
             [
                 f"- Report Date: {row.get('report_date', 'Unknown')}",
@@ -22,7 +38,8 @@ def build_latest_run_section(summary_df: pd.DataFrame, report_path: Path, charts
                 f"- New Records Pulled: {int(row.get('new_records_pulled', 0)):,}",
                 f"- Net Record Change: {int(row.get('net_record_change', 0)):,}",
                 f"- Quality Checks Passed: {int(row.get('checks_passed', 0))}",
-                f"- Quality Checks Failed: {int(row.get('checks_failed', 0))}",
+                f"- Quality Checks Failed: {checks_failed}",
+                *failed_lines,
                 "",
                 "### Latest Charts",
                 "",
@@ -39,8 +56,13 @@ def build_latest_run_section(summary_df: pd.DataFrame, report_path: Path, charts
 
 
 
-def upsert_latest_run_section(readme_path: Path, summary_df: pd.DataFrame, report_path: Path) -> None:
-    section = build_latest_run_section(summary_df, report_path)
+def upsert_latest_run_section(
+    readme_path: Path,
+    summary_df: pd.DataFrame,
+    report_path: Path,
+    quality_checks: list[dict[str, Any]] | None = None,
+) -> None:
+    section = build_latest_run_section(summary_df, report_path, quality_checks=quality_checks)
     original = readme_path.read_text(encoding="utf-8")
 
     if LATEST_MARKER_START in original and LATEST_MARKER_END in original:
