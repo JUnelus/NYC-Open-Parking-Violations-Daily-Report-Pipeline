@@ -1,6 +1,6 @@
 # NYC Open Parking & Camera Violations Daily Report
 
-Report Date: 2026-05-06
+Report Date: 2026-05-07
 
 ## Dashboard & Charts
 
@@ -11,56 +11,75 @@ Report Date: 2026-05-06
 
 ## Executive Summary
 
-- Total Records Pulled: 5
-- New Records Pulled Since Yesterday: 0
-- Open Amount Due: $420.00
-- Total Fine Amount: $375.00
-- Total Penalties: $50.00
-- Total Interest: $15.00
-- Total Payments Recorded: $20.00
-- Total Camera Violations: 3
-- Total Non-Camera Parking Violations: 2
+- Total Records Pulled: 50,000
+- New Records Pulled Since Yesterday: 50,000
+- Open Amount Due: $636.94
+- Total Fine Amount: $4,925,115.00
+- Total Penalties: $210,605.00
+- Total Interest: $1,097.08
+- Total Payments Recorded: $4,933,742.18
+- Total Camera Violations: 0
+- Total Non-Camera Parking Violations: 50,000
 - Previous Snapshot Record Count: 5
-- Resolved or Missing Since Yesterday: 0
-- Net Record Change: 0
+- Previous Snapshot Open Amount Due: $420.00
+- Resolved or Missing Since Yesterday: 5
+- Net Record Change: 49,995
+- Open Amount Due Change: $216.94
 
 ## Top Violation Types
 
 | Rank | Violation Type                 | Count | Amount Due |
 | ---- | ------------------------------ | ----- | ---------- |
-| 1    | BUS LANE VIOLATION             | 1     | 150        |
-| 2    | DOUBLE PARKING                 | 1     | 95         |
-| 3    | FAILURE TO STOP AT RED LIGHT   | 1     | 65         |
-| 4    | PHTO SCHOOL ZN SPEED VIOLATION | 1     | 60         |
-| 5    | NO PARKING-STREET CLEANING     | 1     | 50         |
+| 1    | MOBILE BUS LANE VIOLATION      | 43616 | 125.00     |
+| 2    | NO STAND TAXI/FHV RELIEF STAND | 2098  | 0.00       |
+| 3    | MISUSE PARKING PERMIT          | 1439  | 0.00       |
+| 4    | FRAUDULENT USE PARKING PERMIT  | 1185  | 0.00       |
+| 5    | NO PARKING-EXC. DSBLTY PERMIT  | 583   | 191.94     |
+| 6    | NO STANDING-FOR HIRE VEH STND  | 421   | 0.00       |
+| 7    | WEIGH IN MOTION VIOLATION      | 374   | 0.00       |
+| 8    | PCKP DSCHRGE IN PRHBTD ZONE    | 180   | 0.00       |
+| 9    | Unknown                        | 66    | 0.00       |
+| 10   | MISCELLANEOUS                  | 6     | 0.00       |
 
 ## Top 5 Counties by Amount Due
 
 | Rank | County | Count | Amount Due |
 | ---- | ------ | ----- | ---------- |
-| 1    | BX     | 1     | 150        |
-| 2    | R      | 1     | 95         |
-| 3    | Q      | 1     | 65         |
-| 4    | NY     | 1     | 60         |
-| 5    | K      | 1     | 50         |
+| 1    | K      | 624   | 191.94     |
+| 2    | Q      | 500   | 150.00     |
+| 3    | MN     | 10396 | 125.00     |
+| 4    | NY     | 4240  | 115.00     |
+| 5    | BX     | 126   | 55.00      |
 
 ## Borough & County Breakdown
 
-| County | Count | Amount Due |
-| ------ | ----- | ---------- |
-| BX     | 1     | 150        |
-| R      | 1     | 95         |
-| Q      | 1     | 65         |
-| NY     | 1     | 60         |
-| K      | 1     | 50         |
+| County  | Count | Amount Due |
+| ------- | ----- | ---------- |
+| K       | 624   | 191.94     |
+| Q       | 500   | 150.00     |
+| MN      | 10396 | 125.00     |
+| NY      | 4240  | 115.00     |
+| BX      | 126   | 55.00      |
+| Unknown | 16989 | 0.00       |
+| QN      | 8314  | 0.00       |
+| BK      | 8172  | 0.00       |
+| R       | 430   | 0.00       |
+| ST      | 209   | 0.00       |
 
 ## Issuing Agency Analysis
 
-| Issuing Agency | Count | Amount Due |
-| -------------- | ----- | ---------- |
-| DOT            | 2     | 215        |
-| NYPD           | 2     | 145        |
-| DEP            | 1     | 60         |
+| Issuing Agency                     | Count | Amount Due |
+| ---------------------------------- | ----- | ---------- |
+| DEPARTMENT OF TRANSPORTATION       | 43990 | 125.00     |
+| TRAFFIC                            | 5704  | 0.00       |
+| POLICE DEPARTMENT                  | 95    | 366.94     |
+| Unknown                            | 69    | 0.00       |
+| PARKS DEPARTMENT                   | 61    | 0.00       |
+| NYS PARKS POLICE                   | 21    | 0.00       |
+| PORT AUTHORITY                     | 17    | 105.00     |
+| HEALTH AND HOSPITAL CORP. POLICE   | 10    | 0.00       |
+| NYS OFFICE OF MENTAL HEALTH POLICE | 10    | 0.00       |
+| DEPARTMENT OF SANITATION           | 8     | 0.00       |
 
 ## Granular Time-Series Analysis
 
@@ -68,46 +87,86 @@ Report Date: 2026-05-06
 
 | issue_day  | violations_count | amount_due | payments |
 | ---------- | ---------------- | ---------- | -------- |
-| 2026-05-04 | 2                | 215        | 0        |
-| 2026-05-05 | 2                | 110        | 20       |
+| 2024-04-29 | 28               | 0.00       | 1,695.00 |
+| 2024-04-30 | 17               | 0.00       | 1,060.00 |
+| 2024-05-01 | 17               | 0.00       | 1,025.00 |
+| 2024-05-02 | 10               | 0.00       | 850.00   |
+| 2024-05-03 | 3                | 0.00       | 115.00   |
+| 2024-05-04 | 1                | 0.00       | 115.00   |
+| 2024-05-06 | 2                | 0.00       | 115.00   |
+| 2024-09-11 | 1                | 0.00       | 0.00     |
+| 2025-07-27 | 1                | 0.00       | 0.00     |
+| 2028-05-08 | 1                | 0.00       | 240.00   |
+| 2063-10-08 | 1                | 0.00       | 180.00   |
+| 2071-10-31 | 1                | 0.00       | 0.00     |
+| 2096-02-06 | 1                | 191.94     | 0.00     |
+| 2097-12-11 | 1                | 0.00       | 115.00   |
 
 ### Weekday Pattern
 
-| weekday | violations_count | amount_due |
-| ------- | ---------------- | ---------- |
-| Monday  | 2                | 215        |
-| Tuesday | 2                | 110        |
+| weekday   | violations_count | amount_due |
+| --------- | ---------------- | ---------- |
+| Monday    | 7553             | 191.94     |
+| Tuesday   | 8208             | 0.00       |
+| Wednesday | 8863             | 0.00       |
+| Thursday  | 8570             | 0.00       |
+| Friday    | 9341             | 0.00       |
+| Saturday  | 3875             | 125.00     |
+| Sunday    | 3492             | 0.00       |
 
 ### Monthly Trend
 
 | issue_month | violations_count | amount_due |
 | ----------- | ---------------- | ---------- |
-| 2026-05     | 4                | 325        |
+| 2014-06     | 1                | 0.00       |
+| 2014-07     | 1                | 0.00       |
+| 2014-09     | 1                | 0.00       |
+| 2014-10     | 3                | 0.00       |
+| 2023-12     | 7339             | 125.00     |
+| 2024-01     | 16287            | 0.00       |
+| 2024-02     | 12667            | 0.00       |
+| 2024-03     | 10027            | 0.00       |
+| 2024-04     | 3536             | 0.00       |
+| 2024-05     | 33               | 0.00       |
+| 2024-09     | 1                | 0.00       |
+| 2025-07     | 1                | 0.00       |
+| 2028-05     | 1                | 0.00       |
+| 2063-10     | 1                | 0.00       |
+| 2071-10     | 1                | 0.00       |
+| 2096-02     | 1                | 191.94     |
+| 2097-12     | 1                | 0.00       |
 
 ## Biggest Day-over-Day Changes
 
 | Violation Type                 | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
 | ------------------------------ | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
-| BUS LANE VIOLATION             | 1             | 150                | 1              | 150                 | 0            | 0                 |
-| DOUBLE PARKING                 | 1             | 95                 | 1              | 95                  | 0            | 0                 |
-| FAILURE TO STOP AT RED LIGHT   | 1             | 65                 | 1              | 65                  | 0            | 0                 |
-| NO PARKING-STREET CLEANING     | 1             | 50                 | 1              | 50                  | 0            | 0                 |
-| PHTO SCHOOL ZN SPEED VIOLATION | 1             | 60                 | 1              | 60                  | 0            | 0                 |
+| MOBILE BUS LANE VIOLATION      | 43,616.00     | 125.00             | 0.00           | 0.00                | 43,616.00    | 125.00            |
+| NO STAND TAXI/FHV RELIEF STAND | 2,098.00      | 0.00               | 0.00           | 0.00                | 2,098.00     | 0.00              |
+| MISUSE PARKING PERMIT          | 1,439.00      | 0.00               | 0.00           | 0.00                | 1,439.00     | 0.00              |
+| FRAUDULENT USE PARKING PERMIT  | 1,185.00      | 0.00               | 0.00           | 0.00                | 1,185.00     | 0.00              |
+| NO PARKING-EXC. DSBLTY PERMIT  | 583.00        | 191.94             | 0.00           | 0.00                | 583.00       | 191.94            |
+| NO STANDING-FOR HIRE VEH STND  | 421.00        | 0.00               | 0.00           | 0.00                | 421.00       | 0.00              |
+| WEIGH IN MOTION VIOLATION      | 374.00        | 0.00               | 0.00           | 0.00                | 374.00       | 0.00              |
+| PCKP DSCHRGE IN PRHBTD ZONE    | 180.00        | 0.00               | 0.00           | 0.00                | 180.00       | 0.00              |
+| Unknown                        | 66.00         | 0.00               | 0.00           | 0.00                | 66.00        | 0.00              |
+| MISCELLANEOUS                  | 6.00          | 0.00               | 0.00           | 0.00                | 6.00         | 0.00              |
 
 ## Data Quality Checks
 
 | Check                                 | Result | Details                              |
 | ------------------------------------- | ------ | ------------------------------------ |
-| API returned data                     | PASS   | Rows available: 5                    |
+| API returned data                     | PASS   | Rows available: 50,000               |
 | Required columns present              | PASS   | All required columns are present.    |
 | Numeric fields converted successfully | PASS   | Numeric columns are typed correctly. |
 | No negative amount_due values         | PASS   | Negative amount_due rows: 0          |
-| issue_date parsed successfully        | FAIL   | Rows with invalid issue_date: 1      |
+| issue_date parsed successfully        | FAIL   | Rows with invalid issue_date: 98     |
 | summons_number not null               | PASS   | Rows with null summons_number: 0     |
 
 ## Significant Change Alerts
 
-_No significant alerts triggered for this run._
+- [HIGH] Record count changed by 999900.00% (previous=5, current=50,000).
+- [HIGH] Absolute net record change is 49,995, which exceeds threshold 5,000.
+- [MEDIUM] Open amount due changed by 51.65% (previous=$420.00, current=$636.94).
 
 ## QA Notes
 

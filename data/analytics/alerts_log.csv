@@ -1,0 +1,4 @@
+timestamp_utc,report_date,type,severity,message
+2026-05-07T04:52:12Z,2026-05-07,record_count_pct_change,HIGH,"Record count changed by 999900.00% (previous=5, current=50,000)."
+2026-05-07T04:52:12Z,2026-05-07,record_count_absolute_change,HIGH,"Absolute net record change is 49,995, which exceeds threshold 5,000."
+2026-05-07T04:52:12Z,2026-05-07,amount_due_pct_change,MEDIUM,"Open amount due changed by 51.65% (previous=$420.00, current=$636.94)."
