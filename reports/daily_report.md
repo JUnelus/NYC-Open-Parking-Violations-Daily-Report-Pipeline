@@ -136,6 +136,10 @@ Report Date: 2026-05-07
 | 2096-02     | 1                | 191.94     |
 | 2097-12     | 1                | 0.00       |
 
+## Daily Metric Anomaly Detection
+
+_No anomalies detected for configured thresholds._
+
 ## Biggest Day-over-Day Changes
 
 | Violation Type                | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
