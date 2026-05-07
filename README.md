@@ -379,10 +379,14 @@ This project is portfolio-ready because it demonstrates:
 - Report Date: 2026-05-07
 - Total Records Pulled: 50,000
 - Open Amount Due: $636.94
-- New Records Pulled: 12
+- New Records Pulled: 0
 - Net Record Change: 0
 - Quality Checks Passed: 5
 - Quality Checks Failed: 1
+
+### Quality Check Failures
+
+- **issue_date parsed successfully**: Rows with invalid issue_date: 98
 
 ### Latest Charts
 
