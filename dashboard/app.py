@@ -60,6 +60,14 @@ def load_agency_daily_trend() -> pd.DataFrame:
     return cast(pd.DataFrame, pd.read_csv(path))
 
 
+@st.cache_data
+def load_metric_anomalies() -> pd.DataFrame:
+    path = ANALYTICS_DIR / "daily_metric_anomalies.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    return cast(pd.DataFrame, pd.read_csv(path))
+
+
 
 def render_overview(df: pd.DataFrame) -> None:
     st.subheader("Overview")
@@ -176,6 +184,13 @@ def main() -> None:
     render_overview(filtered)
     render_top_tables(filtered)
     render_time_series()
+
+    st.subheader("Daily Metric Anomalies")
+    anomalies = load_metric_anomalies()
+    if anomalies.empty:
+        st.info("No anomalies detected for current thresholds.")
+    else:
+        st.dataframe(anomalies.tail(20), use_container_width=True)
 
     st.subheader("Filtered Snapshot")
     if filtered.empty:

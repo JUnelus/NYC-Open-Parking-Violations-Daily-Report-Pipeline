@@ -16,6 +16,7 @@ try:
         build_daily_run_metrics,
         build_hourly_issue_trend,
         build_monthly_trend,
+        detect_daily_metric_anomalies,
         build_rolling_daily_metrics,
         build_violation_time_series,
         build_weekday_trend,
@@ -42,6 +43,7 @@ except ImportError:  # pragma: no cover
         build_daily_run_metrics,
         build_hourly_issue_trend,
         build_monthly_trend,
+        detect_daily_metric_anomalies,
         build_rolling_daily_metrics,
         build_violation_time_series,
         build_weekday_trend,
@@ -175,7 +177,13 @@ def save_outputs(
     dated_report_path.write_text(markdown_report, encoding="utf-8")
 
     readme_path = config.data_dir.parent / "README.md"
-    upsert_latest_run_section(readme_path, summary_df, latest_report_path, quality_checks=quality_checks)
+    upsert_latest_run_section(
+        readme_path,
+        summary_df,
+        latest_report_path,
+        quality_checks=quality_checks,
+        anomaly_df=analytics_outputs.get("daily_metric_anomalies"),
+    )
 
 
 
@@ -233,6 +241,15 @@ def main() -> None:
     top_violation_types = build_top_violation_types(transformed_df)
     top_counties = build_top_counties(transformed_df)
     summary_df = build_summary_dataframe(kpis, diff_summary, quality_checks, report_date.isoformat())
+    current_run_metrics = build_daily_run_metrics(transformed_df, report_date)
+    run_metrics_history = current_run_metrics.copy()
+    historical_run_metrics_path = config.analytics_dir / "daily_run_metrics.csv"
+    if historical_run_metrics_path.exists():
+        previous_run_metrics = pd.read_csv(historical_run_metrics_path)
+        run_metrics_history = pd.concat([previous_run_metrics, current_run_metrics], ignore_index=True)
+        run_metrics_history = run_metrics_history.drop_duplicates(subset=["report_date"], keep="last")
+
+    anomalies_df = detect_daily_metric_anomalies(run_metrics_history)
     analytics_outputs = {
         "daily_issue_trend": build_daily_issue_trend(transformed_df),
         "weekday_trend": build_weekday_trend(transformed_df),
@@ -241,7 +258,8 @@ def main() -> None:
         "rolling_daily_metrics": build_rolling_daily_metrics(transformed_df),
         "violation_time_series": build_violation_time_series(transformed_df),
         "agency_daily_trend": build_agency_daily_trend(transformed_df),
-        "daily_run_metrics": build_daily_run_metrics(transformed_df, report_date),
+        "daily_run_metrics": run_metrics_history,
+        "daily_metric_anomalies": anomalies_df,
     }
 
     alerts = evaluate_significant_changes(
@@ -270,6 +288,7 @@ def main() -> None:
         daily_trend_df=analytics_outputs["daily_issue_trend"],
         weekday_trend_df=analytics_outputs["weekday_trend"],
         monthly_trend_df=analytics_outputs["monthly_trend"],
+        anomaly_df=analytics_outputs["daily_metric_anomalies"],
         significant_alerts=alerts,
     )
 

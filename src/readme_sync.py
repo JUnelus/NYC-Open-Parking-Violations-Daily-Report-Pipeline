@@ -15,6 +15,7 @@ def build_latest_run_section(
     report_path: Path,
     charts_relative_dir: str = "reports/charts",
     quality_checks: list[dict[str, Any]] | None = None,
+    anomaly_df: pd.DataFrame | None = None,
 ) -> str:
     if summary_df.empty:
         body = "_No latest run data available._"
@@ -30,6 +31,16 @@ def build_latest_run_section(
                 for c in failed_checks:
                     failed_lines.append(f"- **{c['check']}**: {c['details']}")
 
+        anomaly_lines: list[str] = []
+        if anomaly_df is not None and not anomaly_df.empty:
+            report_date = str(row.get("report_date", ""))
+            current_anomalies = anomaly_df[anomaly_df["report_date"].astype(str) == report_date]
+            if not current_anomalies.empty:
+                anomaly_lines = ["", f"- Daily Metric Anomalies Detected: {len(current_anomalies)}", "", "### Top Anomaly Findings", ""]
+                top_rows = current_anomalies.head(3)
+                for _, anomaly in top_rows.iterrows():
+                    anomaly_lines.append(f"- [{anomaly.get('severity', 'MEDIUM')}] {anomaly.get('reason', '')}")
+
         body = "\n".join(
             [
                 f"- Report Date: {row.get('report_date', 'Unknown')}",
@@ -39,6 +50,7 @@ def build_latest_run_section(
                 f"- Net Record Change: {int(row.get('net_record_change', 0)):,}",
                 f"- Quality Checks Passed: {int(row.get('checks_passed', 0))}",
                 f"- Quality Checks Failed: {checks_failed}",
+                *anomaly_lines,
                 *failed_lines,
                 "",
                 "### Latest Charts",
@@ -61,8 +73,9 @@ def upsert_latest_run_section(
     summary_df: pd.DataFrame,
     report_path: Path,
     quality_checks: list[dict[str, Any]] | None = None,
+    anomaly_df: pd.DataFrame | None = None,
 ) -> None:
-    section = build_latest_run_section(summary_df, report_path, quality_checks=quality_checks)
+    section = build_latest_run_section(summary_df, report_path, quality_checks=quality_checks, anomaly_df=anomaly_df)
     original = readme_path.read_text(encoding="utf-8")
 
     if LATEST_MARKER_START in original and LATEST_MARKER_END in original:

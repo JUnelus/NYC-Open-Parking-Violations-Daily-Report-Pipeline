@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from datetime import date
 
+import pandas as pd
+
 from src.analytics import (
     build_agency_daily_trend,
     build_daily_issue_trend,
@@ -11,6 +13,7 @@ from src.analytics import (
     build_rolling_daily_metrics,
     build_violation_time_series,
     build_weekday_trend,
+    detect_daily_metric_anomalies,
 )
 
 
@@ -37,4 +40,22 @@ def test_granular_time_series_outputs(transformed_df) -> None:
     assert set(["issue_day", "violation", "violations_count", "amount_due"]).issubset(violation_series.columns)
     assert set(["issue_day", "issuing_agency", "violations_count", "amount_due"]).issubset(agency_series.columns)
     assert run_metrics.iloc[0]["report_date"] == "2026-05-06"
+
+
+def test_detect_daily_metric_anomalies_flags_outlier_run() -> None:
+    history = pd.DataFrame(
+        [
+            {"report_date": f"2026-05-{day:02d}", "records": 1000, "total_amount_due": 10000.0, "camera_records": 300}
+            for day in range(1, 13)
+        ]
+        + [{"report_date": "2026-05-13", "records": 2200, "total_amount_due": 26000.0, "camera_records": 900}]
+    )
+
+    anomalies = detect_daily_metric_anomalies(history, z_threshold=2.0, pct_change_threshold=40.0, window=10, min_history=5)
+
+    assert not anomalies.empty
+    latest = anomalies[anomalies["report_date"] == "2026-05-13"]
+    assert not latest.empty
+    assert set(latest["metric"].tolist()).intersection({"records", "total_amount_due", "camera_records"})
+
 

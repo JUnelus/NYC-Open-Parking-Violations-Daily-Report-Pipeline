@@ -125,6 +125,7 @@ Each run generates:
 - top-violation time series in `data/analytics/violation_time_series.csv`
 - top-agency daily trend in `data/analytics/agency_daily_trend.csv`
 - run-level metrics in `data/analytics/daily_run_metrics.csv`
+- anomaly detections on run-level metrics in `data/analytics/daily_metric_anomalies.csv`
 - alert log in `data/analytics/alerts_log.csv`
 
 ## Daily KPIs Included
@@ -403,4 +404,4 @@ Latest report file: `/home/runner/work/NYC-Open-Parking-Violations-Daily-Report-
 
 - export to cloud storage (S3, GCS)
 - deploy dashboard to managed runtime (e.g., Streamlit Cloud, Azure Container Apps)
-- add anomaly detection models on top of daily metrics
+- add advanced anomaly ensembles (seasonality-aware + isolation-based methods)

@@ -210,6 +210,7 @@ def render_markdown_report(
     daily_trend_df: pd.DataFrame | None = None,
     weekday_trend_df: pd.DataFrame | None = None,
     monthly_trend_df: pd.DataFrame | None = None,
+    anomaly_df: pd.DataFrame | None = None,
     significant_alerts: list[dict[str, Any]] | None = None,
 ) -> str:
     checks_df = pd.DataFrame(quality_checks)
@@ -277,6 +278,10 @@ Report Date: {report_date}
 ### Monthly Trend
 
 {dataframe_to_markdown(monthly_trend_df) if monthly_trend_df is not None and not monthly_trend_df.empty else "_No data available._"}
+
+## Daily Metric Anomaly Detection
+
+{dataframe_to_markdown(anomaly_df.tail(10)) if anomaly_df is not None and not anomaly_df.empty else "_No anomalies detected for configured thresholds._"}
 
 ## Biggest Day-over-Day Changes
 
