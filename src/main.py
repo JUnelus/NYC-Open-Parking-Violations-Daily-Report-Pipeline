@@ -11,8 +11,10 @@ try:
     from .extract import fetch_records, paginate_records, load_records_from_file, records_to_dataframe, save_raw_payload
     from .charts import generate_all_charts
     from .analytics import (
+        build_agency_daily_trend,
         build_daily_issue_trend,
         build_daily_run_metrics,
+        build_hourly_issue_trend,
         build_monthly_trend,
         build_rolling_daily_metrics,
         build_violation_time_series,
@@ -35,8 +37,10 @@ except ImportError:  # pragma: no cover
     from extract import fetch_records, paginate_records, load_records_from_file, records_to_dataframe, save_raw_payload
     from charts import generate_all_charts
     from analytics import (
+        build_agency_daily_trend,
         build_daily_issue_trend,
         build_daily_run_metrics,
+        build_hourly_issue_trend,
         build_monthly_trend,
         build_rolling_daily_metrics,
         build_violation_time_series,
@@ -70,6 +74,18 @@ def parse_args() -> argparse.Namespace:
         help="Optional report date override in YYYY-MM-DD format.",
     )
     parser.add_argument("--paginate", action="store_true", help="Paginate through all available records.")
+    parser.add_argument(
+        "--backfill-start-date",
+        type=str,
+        default=None,
+        help="Optional issue_date lower bound in YYYY-MM-DD format.",
+    )
+    parser.add_argument(
+        "--backfill-end-date",
+        type=str,
+        default=None,
+        help="Optional issue_date upper bound in YYYY-MM-DD format.",
+    )
     return parser.parse_args()
 
 
@@ -77,6 +93,12 @@ def parse_args() -> argparse.Namespace:
 def resolve_report_date(value: str | None) -> date:
     if value is None:
         return date.today()
+    return datetime.strptime(value, "%Y-%m-%d").date()
+
+
+def resolve_optional_date(value: str | None) -> date | None:
+    if value is None:
+        return None
     return datetime.strptime(value, "%Y-%m-%d").date()
 
 
@@ -110,7 +132,9 @@ def save_outputs(
     latest_report_path = config.reports_dir / "daily_report.md"
     dated_report_path = config.reports_dir / f"daily_report_{stamp}.md"
     analytics_dir = config.analytics_dir
+    partitioned_dir = config.processed_dir / "partitioned"
     analytics_dir.mkdir(parents=True, exist_ok=True)
+    partitioned_dir.mkdir(parents=True, exist_ok=True)
 
     save_raw_payload(records, raw_path)
     transformed_df.to_csv(processed_history_path, index=False)
@@ -119,6 +143,18 @@ def save_outputs(
     transformed_df.to_parquet(latest_snapshot_parquet_path, index=False)
     summary_df.to_csv(latest_summary_path, index=False)
     summary_df.to_parquet(latest_summary_parquet_path, index=False)
+
+    report_partition_dir = partitioned_dir / f"report_date={stamp}"
+    report_partition_dir.mkdir(parents=True, exist_ok=True)
+    transformed_df.to_parquet(report_partition_dir / "violations.parquet", index=False)
+
+    if "issue_date" in transformed_df.columns and transformed_df["issue_date"].notna().any():
+        issue_partition_df = transformed_df.dropna(subset=["issue_date"]).copy()
+        issue_partition_df["issue_day"] = issue_partition_df["issue_date"].dt.date.astype(str)
+        for issue_day, day_df in issue_partition_df.groupby("issue_day", dropna=True):
+            issue_partition_dir = partitioned_dir / f"issue_date={issue_day}"
+            issue_partition_dir.mkdir(parents=True, exist_ok=True)
+            day_df.drop(columns=["issue_day"]).to_parquet(issue_partition_dir / "violations.parquet", index=False)
 
     for name, analytics_df in analytics_outputs.items():
         csv_path = analytics_dir / f"{name}.csv"
@@ -146,6 +182,10 @@ def main() -> None:
     args = parse_args()
     config = load_config()
     report_date = resolve_report_date(args.report_date)
+    backfill_start_date = resolve_optional_date(args.backfill_start_date)
+    backfill_end_date = resolve_optional_date(args.backfill_end_date)
+    if backfill_start_date and backfill_end_date and backfill_start_date > backfill_end_date:
+        raise ValueError("--backfill-start-date cannot be after --backfill-end-date.")
 
     for directory in (
         config.raw_dir,
@@ -165,6 +205,8 @@ def main() -> None:
                 config=config,
                 camera_only=args.camera_only,
                 open_only=args.open_only,
+                issue_start_date=backfill_start_date,
+                issue_end_date=backfill_end_date,
             )
         else:
             records = fetch_records(
@@ -172,6 +214,8 @@ def main() -> None:
                 limit=args.limit,
                 camera_only=args.camera_only,
                 open_only=args.open_only,
+                issue_start_date=backfill_start_date,
+                issue_end_date=backfill_end_date,
             )
 
     raw_df = records_to_dataframe(records)
@@ -192,8 +236,10 @@ def main() -> None:
         "daily_issue_trend": build_daily_issue_trend(transformed_df),
         "weekday_trend": build_weekday_trend(transformed_df),
         "monthly_trend": build_monthly_trend(transformed_df),
+        "hourly_issue_trend": build_hourly_issue_trend(transformed_df),
         "rolling_daily_metrics": build_rolling_daily_metrics(transformed_df),
         "violation_time_series": build_violation_time_series(transformed_df),
+        "agency_daily_trend": build_agency_daily_trend(transformed_df),
         "daily_run_metrics": build_daily_run_metrics(transformed_df, report_date),
     }
 
@@ -201,6 +247,8 @@ def main() -> None:
         summary_df,
         pct_change_threshold=config.alert_pct_change_threshold,
         absolute_count_threshold=config.alert_absolute_count_threshold,
+        amount_pct_change_threshold=config.alert_amount_pct_change_threshold,
+        absolute_amount_threshold=config.alert_absolute_amount_threshold,
     )
     alert_log_df = build_alert_log_rows(alerts, report_date.isoformat())
     if config.alerts_enabled and config.alert_webhook_url and alerts:

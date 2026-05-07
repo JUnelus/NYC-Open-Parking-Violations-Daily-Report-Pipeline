@@ -12,6 +12,8 @@ def evaluate_significant_changes(
     summary_df: pd.DataFrame,
     pct_change_threshold: float,
     absolute_count_threshold: int,
+    amount_pct_change_threshold: float,
+    absolute_amount_threshold: float,
 ) -> list[dict[str, Any]]:
     alerts: list[dict[str, Any]] = []
     if summary_df.empty:
@@ -21,6 +23,9 @@ def evaluate_significant_changes(
     previous_count = float(row.get("previous_record_count", 0) or 0)
     net_change = float(row.get("net_record_change", 0) or 0)
     current_count = float(row.get("total_records_pulled", 0) or 0)
+    previous_amount_due = float(row.get("previous_open_amount_due", 0.0) or 0.0)
+    amount_due_change = float(row.get("open_amount_due_change", 0.0) or 0.0)
+    current_amount_due = float(row.get("total_open_amount_due", 0.0) or 0.0)
 
     if previous_count > 0:
         pct_change = (net_change / previous_count) * 100.0
@@ -47,6 +52,35 @@ def evaluate_significant_changes(
                 "message": (
                     f"Absolute net record change is {int(net_change):,}, "
                     f"which exceeds threshold {absolute_count_threshold:,}."
+                ),
+            }
+        )
+
+    if previous_amount_due > 0:
+        amount_pct_change = (amount_due_change / previous_amount_due) * 100.0
+    else:
+        amount_pct_change = 100.0 if current_amount_due > 0 else 0.0
+
+    if abs(amount_pct_change) >= amount_pct_change_threshold:
+        alerts.append(
+            {
+                "type": "amount_due_pct_change",
+                "severity": "HIGH" if abs(amount_pct_change) >= max(2 * amount_pct_change_threshold, 50.0) else "MEDIUM",
+                "message": (
+                    f"Open amount due changed by {amount_pct_change:.2f}% "
+                    f"(previous=${previous_amount_due:,.2f}, current=${current_amount_due:,.2f})."
+                ),
+            }
+        )
+
+    if abs(amount_due_change) >= absolute_amount_threshold:
+        alerts.append(
+            {
+                "type": "amount_due_absolute_change",
+                "severity": "HIGH",
+                "message": (
+                    f"Absolute open amount due change is ${amount_due_change:,.2f}, "
+                    f"which exceeds threshold ${absolute_amount_threshold:,.2f}."
                 ),
             }
         )

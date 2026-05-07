@@ -21,6 +21,8 @@ DEFAULT_LIMIT = 50_000
 DEFAULT_TIMEOUT = 60
 DEFAULT_ALERT_PCT_CHANGE_THRESHOLD = 50.0
 DEFAULT_ALERT_ABSOLUTE_COUNT_THRESHOLD = 5_000
+DEFAULT_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD = 35.0
+DEFAULT_ALERT_ABSOLUTE_AMOUNT_THRESHOLD = 250_000.0
 
 CAMERA_VIOLATIONS = {
     "PHTO SCHOOL ZN SPEED VIOLATION",
@@ -48,32 +50,34 @@ class AppConfig:
     alert_webhook_url: str | None = None
     alert_pct_change_threshold: float = DEFAULT_ALERT_PCT_CHANGE_THRESHOLD
     alert_absolute_count_threshold: int = DEFAULT_ALERT_ABSOLUTE_COUNT_THRESHOLD
+    alert_amount_pct_change_threshold: float = DEFAULT_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD
+    alert_absolute_amount_threshold: float = DEFAULT_ALERT_ABSOLUTE_AMOUNT_THRESHOLD
 
 
 
 def _get_int(name: str, default: int) -> int:
     value = os.getenv(name)
-    if value is None:
+    if value is None or value.strip() == "":
         return default
     try:
-        return int(value)
+        return int(value.strip())
     except ValueError as exc:
         raise ValueError(f"Environment variable {name} must be an integer.") from exc
 
 
 def _get_float(name: str, default: float) -> float:
     value = os.getenv(name)
-    if value is None:
+    if value is None or value.strip() == "":
         return default
     try:
-        return float(value)
+        return float(value.strip())
     except ValueError as exc:
         raise ValueError(f"Environment variable {name} must be a float.") from exc
 
 
 def _get_bool(name: str, default: bool) -> bool:
     value = os.getenv(name)
-    if value is None:
+    if value is None or value.strip() == "":
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
@@ -98,6 +102,14 @@ def load_config() -> AppConfig:
         alert_absolute_count_threshold=_get_int(
             "NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD",
             DEFAULT_ALERT_ABSOLUTE_COUNT_THRESHOLD,
+        ),
+        alert_amount_pct_change_threshold=_get_float(
+            "NYC311_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD",
+            DEFAULT_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD,
+        ),
+        alert_absolute_amount_threshold=_get_float(
+            "NYC311_ALERT_ABSOLUTE_AMOUNT_THRESHOLD",
+            DEFAULT_ALERT_ABSOLUTE_AMOUNT_THRESHOLD,
         ),
     )
 

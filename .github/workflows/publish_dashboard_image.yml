@@ -1,0 +1,42 @@
+name: Publish Dashboard Image
+
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "dashboard/**"
+      - "requirements.txt"
+      - ".github/workflows/publish_dashboard_image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  publish-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push dashboard image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: dashboard/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/nyc-open-parking-dashboard:latest
+

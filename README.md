@@ -120,8 +120,10 @@ Each run generates:
 - daily issue trend in `data/analytics/daily_issue_trend.csv`
 - weekday trend in `data/analytics/weekday_trend.csv`
 - monthly trend in `data/analytics/monthly_trend.csv`
+- hourly issue trend in `data/analytics/hourly_issue_trend.csv`
 - rolling daily metrics in `data/analytics/rolling_daily_metrics.csv`
 - top-violation time series in `data/analytics/violation_time_series.csv`
+- top-agency daily trend in `data/analytics/agency_daily_trend.csv`
 - run-level metrics in `data/analytics/daily_run_metrics.csv`
 - alert log in `data/analytics/alerts_log.csv`
 
@@ -189,6 +191,12 @@ Copy `.env.example` to `.env` and provide values for:
 - `NYC311_SODA3_ENDPOINT`
 - `NYC311_API_LIMIT`
 - `NYC311_API_TIMEOUT`
+- `NYC311_ALERTS_ENABLED`
+- `NYC311_ALERT_WEBHOOK_URL`
+- `NYC311_ALERT_PCT_CHANGE_THRESHOLD`
+- `NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD`
+- `NYC311_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD`
+- `NYC311_ALERT_ABSOLUTE_AMOUNT_THRESHOLD`
 
 The repository is already configured to ignore `.env`, so local secrets are not committed.
 
@@ -226,6 +234,14 @@ python src/main.py --limit 10000
 python src/main.py --paginate
 ```
 
+### Historical Backfill (Issue Date Range)
+
+```powershell
+python src/main.py --paginate --backfill-start-date 2026-01-01 --backfill-end-date 2026-01-31
+```
+
+Backfill runs also write partitioned parquet history under `data/processed/partitioned/` by both `report_date=` and `issue_date=` directories.
+
 ### Pagination
 
 By default, the pipeline fetches up to 50,000 records in a single request. To paginate through all available records:
@@ -257,7 +273,12 @@ The dashboard includes:
 - interactive filters for violation type and county
 - top-violations and top-counties tables
 - daily, weekday, and category time-series charts
+- hourly issue trend and top-agency daily trend views
 - browsable snapshot table for QA/debugging
+
+### Publish the Dashboard Container
+
+This repo includes `dashboard/Dockerfile` and `.github/workflows/publish_dashboard_image.yml` to publish a dashboard image to GHCR on dashboard-related pushes.
 
 ## Alert / Notification System
 
@@ -267,6 +288,8 @@ Supported triggers:
 
 - the percentage change in total record count exceeds the threshold
 - absolute net record count change exceeds the threshold
+- the percentage change in open amount due exceeds the threshold
+- absolute open amount due change exceeds the threshold
 
 Configure alerts in `.env`:
 
@@ -274,6 +297,8 @@ Configure alerts in `.env`:
 - `NYC311_ALERT_WEBHOOK_URL=<your_slack_or_teams_webhook>`
 - `NYC311_ALERT_PCT_CHANGE_THRESHOLD=50`
 - `NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD=5000`
+- `NYC311_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD=35`
+- `NYC311_ALERT_ABSOLUTE_AMOUNT_THRESHOLD=250000`
 
 Alerts are always logged to `data/analytics/alerts_log.csv`. If webhook settings are enabled, alerts are also posted to the webhook endpoint.
 
@@ -300,7 +325,7 @@ The tests cover:
 
 ## GitHub Actions Automation
 
-The workflow in `.github/workflows/daily_report.yml` runs on a daily schedule and also supports manual execution.
+The workflow in `.github/workflows/daily_report.yml` runs on every push, on a daily schedule, and via manual execution.
 
 It performs the following steps:
 
@@ -324,6 +349,8 @@ Optional for alert notifications:
 - Variable: `NYC311_ALERTS_ENABLED`
 - Variable: `NYC311_ALERT_PCT_CHANGE_THRESHOLD`
 - Variable: `NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD`
+- Variable: `NYC311_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD`
+- Variable: `NYC311_ALERT_ABSOLUTE_AMOUNT_THRESHOLD`
 
 ## Example Report Contents
 
@@ -370,8 +397,6 @@ Latest report file: `C:/Users/big_j/PycharmProjects/NYC-Open-Parking-Violations-
 
 ## Future Enhancements
 
-- publish interactive dashboard (Streamlit/Dash)
-- add more granular time-series analysis
-- support for historical backfills and partitioned storage
 - export to cloud storage (S3, GCS)
-- alert/notification system for significant changes
+- deploy dashboard to managed runtime (e.g., Streamlit Cloud, Azure Container Apps)
+- add anomaly detection models on top of daily metrics

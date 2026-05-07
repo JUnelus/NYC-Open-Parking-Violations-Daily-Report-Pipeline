@@ -63,12 +63,15 @@ def calculate_kpis(df: pd.DataFrame) -> dict[str, Any]:
 
 
 def compare_snapshots(current_df: pd.DataFrame, previous_df: pd.DataFrame | None) -> tuple[dict[str, Any], pd.DataFrame]:
+    current_open_amount_due = float(current_df["amount_due"].sum()) if "amount_due" in current_df.columns else 0.0
     if previous_df is None or previous_df.empty:
         diff_summary = {
             "new_records_pulled": int(len(current_df)),
             "resolved_or_missing_since_yesterday": 0,
             "net_record_change": int(len(current_df)),
             "previous_record_count": 0,
+            "previous_open_amount_due": 0.0,
+            "open_amount_due_change": current_open_amount_due,
         }
         changes = (
             current_df.groupby("violation", dropna=False)
@@ -85,7 +88,9 @@ def compare_snapshots(current_df: pd.DataFrame, previous_df: pd.DataFrame | None
             "resolved_or_missing_since_yesterday": len(previous_keys - current_keys),
             "net_record_change": len(current_df) - len(previous_df),
             "previous_record_count": len(previous_df),
+            "previous_open_amount_due": float(previous_df["amount_due"].sum()) if "amount_due" in previous_df.columns else 0.0,
         }
+        diff_summary["open_amount_due_change"] = current_open_amount_due - diff_summary["previous_open_amount_due"]
 
         current_grouped = (
             current_df.groupby("violation", dropna=False)
@@ -238,8 +243,10 @@ Report Date: {report_date}
 - Total Camera Violations: {kpis['total_camera_violations']:,}
 - Total Non-Camera Parking Violations: {kpis['total_non_camera_parking_violations']:,}
 - Previous Snapshot Record Count: {diff_summary['previous_record_count']:,}
+- Previous Snapshot Open Amount Due: {format_currency(diff_summary.get('previous_open_amount_due', 0.0))}
 - Resolved or Missing Since Yesterday: {diff_summary['resolved_or_missing_since_yesterday']:,}
 - Net Record Change: {diff_summary['net_record_change']:,}
+- Open Amount Due Change: {format_currency(diff_summary.get('open_amount_due_change', 0.0))}
 
 ## Top Violation Types
 

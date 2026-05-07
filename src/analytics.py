@@ -102,6 +102,50 @@ def build_violation_time_series(df: pd.DataFrame, top_n: int = 5) -> pd.DataFram
     return trend
 
 
+def build_hourly_issue_trend(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["issue_hour", "violations_count", "amount_due"])
+
+    valid_dates = df[df["issue_date"].notna()].copy()
+    if valid_dates.empty:
+        return pd.DataFrame(columns=["issue_hour", "violations_count", "amount_due"])
+
+    trend = (
+        valid_dates.assign(issue_hour=valid_dates["issue_date"].dt.hour)
+        .groupby("issue_hour", dropna=True)
+        .agg(violations_count=("summons_number", "count"), amount_due=("amount_due", "sum"))
+        .reset_index()
+        .sort_values("issue_hour")
+    )
+    return trend
+
+
+def build_agency_daily_trend(df: pd.DataFrame, top_n: int = 5) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["issue_day", "issuing_agency", "violations_count", "amount_due"])
+
+    top_agencies = (
+        df.groupby("issuing_agency", dropna=False)
+        .size()
+        .sort_values(ascending=False)
+        .head(top_n)
+        .index
+        .tolist()
+    )
+    filtered = df[df["issuing_agency"].isin(top_agencies)].copy()
+    if filtered.empty:
+        return pd.DataFrame(columns=["issue_day", "issuing_agency", "violations_count", "amount_due"])
+
+    trend = (
+        filtered.assign(issue_day=filtered["issue_date"].dt.date)
+        .groupby(["issue_day", "issuing_agency"], dropna=False)
+        .agg(violations_count=("summons_number", "count"), amount_due=("amount_due", "sum"))
+        .reset_index()
+        .sort_values(["issue_day", "violations_count"], ascending=[True, False])
+    )
+    return trend
+
+
 def build_daily_run_metrics(current_df: pd.DataFrame, report_date: date) -> pd.DataFrame:
     row = {
         "report_date": report_date.isoformat(),

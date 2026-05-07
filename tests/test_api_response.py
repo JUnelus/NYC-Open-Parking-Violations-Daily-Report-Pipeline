@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import date
+
 from src.extract import build_query_params, records_to_dataframe
 
 
@@ -29,5 +31,15 @@ def test_build_query_params_for_open_camera_request() -> None:
     assert params["$order"] == "issue_date DESC"
     assert "amount_due > 0" in params["$where"]
     assert "violation in(" in params["$where"]
+
+
+def test_build_query_params_for_backfill_range() -> None:
+    params = build_query_params(
+        limit=1000,
+        issue_start_date=date(2026, 5, 1),
+        issue_end_date=date(2026, 5, 3),
+    )
+    assert "issue_date >= '2026-05-01T00:00:00'" in params["$where"]
+    assert "issue_date < '2026-05-04T00:00:00'" in params["$where"]
 
 

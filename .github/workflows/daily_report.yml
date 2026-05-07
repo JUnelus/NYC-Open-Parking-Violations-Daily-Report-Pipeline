@@ -1,12 +1,22 @@
 name: Daily NYC Parking Violations Report
 
 on:
+  push:
+    branches:
+      - "**"
   schedule:
     - cron: "0 11 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build-report:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:

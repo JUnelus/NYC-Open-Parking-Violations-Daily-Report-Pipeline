@@ -44,6 +44,22 @@ def load_violation_timeseries() -> pd.DataFrame:
     return cast(pd.DataFrame, pd.read_csv(path))
 
 
+@st.cache_data
+def load_hourly_trend() -> pd.DataFrame:
+    path = ANALYTICS_DIR / "hourly_issue_trend.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    return cast(pd.DataFrame, pd.read_csv(path))
+
+
+@st.cache_data
+def load_agency_daily_trend() -> pd.DataFrame:
+    path = ANALYTICS_DIR / "agency_daily_trend.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    return cast(pd.DataFrame, pd.read_csv(path))
+
+
 
 def render_overview(df: pd.DataFrame) -> None:
     st.subheader("Overview")
@@ -112,6 +128,8 @@ def render_time_series() -> None:
     daily = load_daily_trend()
     weekday = load_weekday_trend()
     violation_trend = load_violation_timeseries()
+    hourly = load_hourly_trend()
+    agency_daily = load_agency_daily_trend()
 
     if daily.empty:
         st.info("No analytics files found yet. Run the pipeline to generate them.")
@@ -127,10 +145,23 @@ def render_time_series() -> None:
         st.markdown("**Weekday Pattern**")
         st.bar_chart(weekday.set_index("weekday")["violations_count"])
 
+    if not hourly.empty:
+        st.markdown("**Hourly Pattern**")
+        st.bar_chart(hourly.set_index("issue_hour")["violations_count"])
+
     if not violation_trend.empty:
         st.markdown("**Top Violation Types Over Time**")
         pivoted = violation_trend.pivot(index="issue_day", columns="violation", values="violations_count").fillna(0)
         st.line_chart(pivoted)
+
+    if not agency_daily.empty:
+        st.markdown("**Top Agencies Over Time**")
+        pivoted_agencies = agency_daily.pivot(
+            index="issue_day",
+            columns="issuing_agency",
+            values="violations_count",
+        ).fillna(0)
+        st.line_chart(pivoted_agencies)
 
 
 
