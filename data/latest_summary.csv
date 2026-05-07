@@ -1,0 +1,2 @@
+report_date,total_records_pulled,total_open_amount_due,total_fine_amount,total_penalty_amount,total_interest_amount,total_payment_amount,total_camera_violations,total_non_camera_parking_violations,new_records_pulled,resolved_or_missing_since_yesterday,net_record_change,previous_record_count,checks_passed,checks_failed
+2026-05-06,5,420.0,375.0,50.0,15.0,20.0,3,2,0,0,0,5,5,1

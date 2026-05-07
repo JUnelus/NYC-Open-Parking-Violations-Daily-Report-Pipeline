@@ -1,0 +1,75 @@
+[
+  {
+    "summons_number": "1000000001",
+    "issue_date": "2026-05-05T00:00:00.000",
+    "violation": "PHTO SCHOOL ZN SPEED VIOLATION",
+    "fine_amount": "50",
+    "penalty_amount": "10",
+    "interest_amount": "0",
+    "payment_amount": "0",
+    "amount_due": "60",
+    "county": "NY",
+    "issuing_agency": "DEP"
+  },
+  {
+    "summons_number": "1000000002",
+    "issue_date": "2026-05-05T00:00:00.000",
+    "violation": "NO PARKING-STREET CLEANING",
+    "fine_amount": "65",
+    "penalty_amount": "0",
+    "interest_amount": "5",
+    "payment_amount": "20",
+    "amount_due": "50",
+    "county": "K",
+    "issuing_agency": "NYPD"
+  },
+  {
+    "summons_number": "1000000003",
+    "issue_date": "2026-05-04T00:00:00.000",
+    "violation": "FAILURE TO STOP AT RED LIGHT",
+    "fine_amount": "50",
+    "penalty_amount": "15",
+    "interest_amount": "0",
+    "payment_amount": "0",
+    "amount_due": "65",
+    "county": "Q",
+    "issuing_agency": "DOT"
+  },
+  {
+    "summons_number": "1000000004",
+    "issue_date": "2026-05-04T00:00:00.000",
+    "violation": "BUS LANE VIOLATION",
+    "fine_amount": "115",
+    "penalty_amount": "25",
+    "interest_amount": "10",
+    "payment_amount": "0",
+    "amount_due": "150",
+    "county": "BX",
+    "issuing_agency": "DOT"
+  },
+  {
+    "summons_number": "1000000004",
+    "issue_date": "2026-05-04T00:00:00.000",
+    "violation": "BUS LANE VIOLATION",
+    "fine_amount": "115",
+    "penalty_amount": "25",
+    "interest_amount": "10",
+    "payment_amount": "0",
+    "amount_due": "150",
+    "county": "BX",
+    "issuing_agency": "DOT"
+  },
+  {
+    "summons_number": "1000000005",
+    "issue_date": "invalid-date",
+    "violation": "DOUBLE PARKING",
+    "fine_amount": "95",
+    "penalty_amount": "0",
+    "interest_amount": "0",
+    "payment_amount": "0",
+    "amount_due": "95",
+    "county": "R",
+    "issuing_agency": "NYPD"
+  }
+]
+

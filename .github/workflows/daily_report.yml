@@ -1,0 +1,61 @@
+name: Daily NYC Parking Violations Report
+
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  build-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          pytest
+
+      - name: Run daily report pipeline
+        env:
+          NYC311_APP_TOKEN: ${{ secrets.NYC311_APP_TOKEN }}
+          NYC311_SECRET_TOKEN: ${{ secrets.NYC311_SECRET_TOKEN }}
+          NYC311_ALERTS_ENABLED: ${{ vars.NYC311_ALERTS_ENABLED }}
+          NYC311_ALERT_WEBHOOK_URL: ${{ secrets.NYC311_ALERT_WEBHOOK_URL }}
+          NYC311_ALERT_PCT_CHANGE_THRESHOLD: ${{ vars.NYC311_ALERT_PCT_CHANGE_THRESHOLD }}
+          NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD: ${{ vars.NYC311_ALERT_ABSOLUTE_COUNT_THRESHOLD }}
+        run: |
+          python src/main.py
+
+      - name: Upload generated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyc-parking-violations-daily-report
+          path: |
+            data/latest_summary.csv
+            data/processed/latest_snapshot.csv
+            data/analytics/
+            reports/daily_report.md
+            reports/charts/
+
+      - name: Commit updated report outputs
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add data/ reports/ README.md
+          git commit -m "Update daily NYC parking violations report with charts and analysis" || echo "No changes to commit"
+          git push
+
