@@ -377,10 +377,10 @@ This project is portfolio-ready because it demonstrates:
 <!-- LATEST_RUN_START -->
 ## Latest Automated Run
 
-- Report Date: 2026-05-07
+- Report Date: 2026-05-08
 - Total Records Pulled: 50,000
 - Open Amount Due: $636.94
-- New Records Pulled: 12
+- New Records Pulled: 0
 - Net Record Change: 0
 - Quality Checks Passed: 5
 - Quality Checks Failed: 1
