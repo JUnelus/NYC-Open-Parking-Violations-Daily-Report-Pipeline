@@ -1,6 +1,6 @@
 # NYC Open Parking & Camera Violations Daily Report
 
-Report Date: 2026-05-11
+Report Date: 2026-05-12
 
 ## Dashboard & Charts
 
@@ -12,17 +12,17 @@ Report Date: 2026-05-11
 ## Executive Summary
 
 - Total Records Pulled: 50,000
-- New Records Pulled Since Yesterday: 0
+- New Records Pulled Since Yesterday: 12
 - Open Amount Due: $636.94
-- Total Fine Amount: $4,925,115.00
-- Total Penalties: $210,605.00
+- Total Fine Amount: $4,924,280.00
+- Total Penalties: $210,590.00
 - Total Interest: $1,097.08
-- Total Payments Recorded: $4,933,742.18
+- Total Payments Recorded: $4,932,892.18
 - Total Camera Violations: 0
 - Total Non-Camera Parking Violations: 50,000
 - Previous Snapshot Record Count: 50,000
 - Previous Snapshot Open Amount Due: $636.94
-- Resolved or Missing Since Yesterday: 0
+- Resolved or Missing Since Yesterday: 12
 - Net Record Change: 0
 - Open Amount Due Change: $0.00
 
@@ -30,14 +30,14 @@ Report Date: 2026-05-11
 
 | Rank | Violation Type                 | Count | Amount Due |
 | ---- | ------------------------------ | ----- | ---------- |
-| 1    | MOBILE BUS LANE VIOLATION      | 43616 | 125.00     |
-| 2    | NO STAND TAXI/FHV RELIEF STAND | 2098  | 0.00       |
+| 1    | MOBILE BUS LANE VIOLATION      | 43615 | 125.00     |
+| 2    | NO STAND TAXI/FHV RELIEF STAND | 2097  | 0.00       |
 | 3    | MISUSE PARKING PERMIT          | 1439  | 0.00       |
 | 4    | FRAUDULENT USE PARKING PERMIT  | 1185  | 0.00       |
 | 5    | NO PARKING-EXC. DSBLTY PERMIT  | 583   | 191.94     |
 | 6    | NO STANDING-FOR HIRE VEH STND  | 421   | 0.00       |
 | 7    | WEIGH IN MOTION VIOLATION      | 374   | 0.00       |
-| 8    | PCKP DSCHRGE IN PRHBTD ZONE    | 180   | 0.00       |
+| 8    | PCKP DSCHRGE IN PRHBTD ZONE    | 182   | 0.00       |
 | 9    | Unknown                        | 66    | 0.00       |
 | 10   | MISCELLANEOUS                  | 6     | 0.00       |
 
@@ -48,7 +48,7 @@ Report Date: 2026-05-11
 | 1    | K      | 624   | 191.94     |
 | 2    | Q      | 500   | 150.00     |
 | 3    | MN     | 10396 | 125.00     |
-| 4    | NY     | 4240  | 115.00     |
+| 4    | NY     | 4241  | 115.00     |
 | 5    | BX     | 126   | 55.00      |
 
 ## Borough & County Breakdown
@@ -58,11 +58,11 @@ Report Date: 2026-05-11
 | K       | 624   | 191.94     |
 | Q       | 500   | 150.00     |
 | MN      | 10396 | 125.00     |
-| NY      | 4240  | 115.00     |
+| NY      | 4241  | 115.00     |
 | BX      | 126   | 55.00      |
-| Unknown | 16989 | 0.00       |
-| QN      | 8314  | 0.00       |
-| BK      | 8172  | 0.00       |
+| Unknown | 16983 | 0.00       |
+| QN      | 8320  | 0.00       |
+| BK      | 8171  | 0.00       |
 | R       | 430   | 0.00       |
 | ST      | 209   | 0.00       |
 
@@ -70,8 +70,8 @@ Report Date: 2026-05-11
 
 | Issuing Agency                     | Count | Amount Due |
 | ---------------------------------- | ----- | ---------- |
-| DEPARTMENT OF TRANSPORTATION       | 43990 | 125.00     |
-| TRAFFIC                            | 5704  | 0.00       |
+| DEPARTMENT OF TRANSPORTATION       | 43989 | 125.00     |
+| TRAFFIC                            | 5705  | 0.00       |
 | POLICE DEPARTMENT                  | 95    | 366.94     |
 | Unknown                            | 69    | 0.00       |
 | PARKS DEPARTMENT                   | 61    | 0.00       |
@@ -142,18 +142,18 @@ _No anomalies detected for configured thresholds._
 
 ## Biggest Day-over-Day Changes
 
-| Violation Type                | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
-| ----------------------------- | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
-| ANGLE PARKING                 | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
-| BEYOND MARKED SPACE           | 1             | 45.00              | 1              | 45.00               | 0            | 0.00              |
-| EXPIRED MUNI METER            | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
-| FIRE HYDRANT                  | 3             | 0.00               | 3              | 0.00                | 0            | 0.00              |
-| FRAUDULENT USE PARKING PERMIT | 1185          | 0.00               | 1185           | 0.00                | 0            | 0.00              |
-| FRONT OR BACK PLATE MISSING   | 3             | 75.00              | 3              | 75.00               | 0            | 0.00              |
-| INSP. STICKER-EXPIRED/MISSING | 2             | 0.00               | 2              | 0.00                | 0            | 0.00              |
-| MISCELLANEOUS                 | 6             | 0.00               | 6              | 0.00                | 0            | 0.00              |
-| MISUSE PARKING PERMIT         | 1439          | 0.00               | 1439           | 0.00                | 0            | 0.00              |
-| MOBILE BUS LANE VIOLATION     | 43616         | 125.00             | 43616          | 125.00              | 0            | 0.00              |
+| Violation Type                 | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
+| ------------------------------ | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
+| PCKP DSCHRGE IN PRHBTD ZONE    | 182           | 0.00               | 180            | 0.00                | 2            | 0.00              |
+| MOBILE BUS LANE VIOLATION      | 43615         | 125.00             | 43616          | 125.00              | -1           | 0.00              |
+| NO STAND TAXI/FHV RELIEF STAND | 2097          | 0.00               | 2098           | 0.00                | -1           | 0.00              |
+| ANGLE PARKING                  | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
+| BEYOND MARKED SPACE            | 1             | 45.00              | 1              | 45.00               | 0            | 0.00              |
+| EXPIRED MUNI METER             | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
+| FIRE HYDRANT                   | 3             | 0.00               | 3              | 0.00                | 0            | 0.00              |
+| FRAUDULENT USE PARKING PERMIT  | 1185          | 0.00               | 1185           | 0.00                | 0            | 0.00              |
+| FRONT OR BACK PLATE MISSING    | 3             | 75.00              | 3              | 75.00               | 0            | 0.00              |
+| INSP. STICKER-EXPIRED/MISSING  | 2             | 0.00               | 2              | 0.00                | 0            | 0.00              |
 
 ## Data Quality Checks
 
