@@ -398,7 +398,7 @@ This project is portfolio-ready because it demonstrates:
 ![Top Agencies](reports/charts/top_agencies.png)
 ![Camera vs Parking](reports/charts/camera_vs_parking.png)
 
-Latest report file: `C:/Users/big_j/PycharmProjects/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
+Latest report file: `/home/runner/work/NYC-Open-Parking-Violations-Daily-Report-Pipeline/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
 <!-- LATEST_RUN_END -->
 
 
