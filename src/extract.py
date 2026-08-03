@@ -7,11 +7,33 @@ from typing import Any
 
 import pandas as pd
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 try:
     from .config import AppConfig, CAMERA_VIOLATIONS
 except ImportError:  # pragma: no cover
     from config import AppConfig, CAMERA_VIOLATIONS
+
+RETRYABLE_STATUS_CODES = (429, 500, 502, 503, 504)
+
+
+def build_retry_session(session: requests.Session, config: AppConfig) -> requests.Session:
+    retry = Retry(
+        total=config.http_retry_total,
+        connect=config.http_retry_total,
+        read=config.http_retry_total,
+        status=config.http_retry_total,
+        backoff_factor=config.http_retry_backoff_seconds,
+        status_forcelist=RETRYABLE_STATUS_CODES,
+        allowed_methods=frozenset({"GET"}),
+        raise_on_status=False,
+        respect_retry_after_header=True,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
 
 
 
@@ -55,41 +77,45 @@ def paginate_records(
 ) -> list[dict[str, Any]]:
     """Fetch all records across all pages, handling API pagination."""
     all_records: list[dict[str, Any]] = []
-    active_session = session or requests.Session()
+    owns_session = session is None
+    active_session = build_retry_session(session or requests.Session(), config)
     offset = 0
     batch_size = config.limit
     headers = {"X-App-Token": config.app_token} if config.app_token else {}
+    try:
+        while True:
+            params = build_query_params(
+                batch_size,
+                camera_only=camera_only,
+                open_only=open_only,
+                issue_start_date=issue_start_date,
+                issue_end_date=issue_end_date,
+            )
+            params["$offset"] = offset
 
-    while True:
-        params = build_query_params(
-            batch_size,
-            camera_only=camera_only,
-            open_only=open_only,
-            issue_start_date=issue_start_date,
-            issue_end_date=issue_end_date,
-        )
-        params["$offset"] = offset
+            response = active_session.get(
+                config.soda2_endpoint,
+                params=params,
+                headers=headers,
+                timeout=config.timeout,
+            )
+            response.raise_for_status()
+            payload = response.json()
 
-        response = active_session.get(
-            config.soda2_endpoint,
-            params=params,
-            headers=headers,
-            timeout=config.timeout,
-        )
-        response.raise_for_status()
-        payload = response.json()
+            if not isinstance(payload, list):
+                raise ValueError("Expected the SODA API to return a list of records.")
 
-        if not isinstance(payload, list):
-            raise ValueError("Expected the SODA API to return a list of records.")
+            if not payload:
+                break
 
-        if not payload:
-            break
+            all_records.extend(payload)
+            if len(payload) < batch_size:
+                break
 
-        all_records.extend(payload)
-        if len(payload) < batch_size:
-            break
-
-        offset += batch_size
+            offset += batch_size
+    finally:
+        if owns_session:
+            active_session.close()
 
     return all_records
 
@@ -105,22 +131,26 @@ def fetch_records(
 ) -> list[dict[str, Any]]:
     query_limit = limit if limit is not None else config.limit
     headers = {"X-App-Token": config.app_token} if config.app_token else {}
-    active_session = session or requests.Session()
-
-    response = active_session.get(
-        config.soda2_endpoint,
-        params=build_query_params(
-            query_limit,
-            camera_only=camera_only,
-            open_only=open_only,
-            issue_start_date=issue_start_date,
-            issue_end_date=issue_end_date,
-        ),
-        headers=headers,
-        timeout=config.timeout,
-    )
-    response.raise_for_status()
-    payload = response.json()
+    owns_session = session is None
+    active_session = build_retry_session(session or requests.Session(), config)
+    try:
+        response = active_session.get(
+            config.soda2_endpoint,
+            params=build_query_params(
+                query_limit,
+                camera_only=camera_only,
+                open_only=open_only,
+                issue_start_date=issue_start_date,
+                issue_end_date=issue_end_date,
+            ),
+            headers=headers,
+            timeout=config.timeout,
+        )
+        response.raise_for_status()
+        payload = response.json()
+    finally:
+        if owns_session:
+            active_session.close()
 
     if not isinstance(payload, list):
         raise ValueError("Expected the SODA API to return a list of records.")
@@ -151,5 +181,4 @@ def save_raw_payload(records: list[dict[str, Any]], output_path: str | Path) -> 
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(records, handle, indent=2)
-
 

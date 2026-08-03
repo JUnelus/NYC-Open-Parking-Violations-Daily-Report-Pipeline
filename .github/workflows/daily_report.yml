@@ -21,12 +21,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -43,6 +43,9 @@ jobs:
         env:
           NYC311_APP_TOKEN: ${{ secrets.NYC311_APP_TOKEN }}
           NYC311_SECRET_TOKEN: ${{ secrets.NYC311_SECRET_TOKEN }}
+          NYC311_API_TIMEOUT: "180"
+          NYC311_HTTP_RETRY_TOTAL: "5"
+          NYC311_HTTP_RETRY_BACKOFF_SECONDS: "2.0"
           NYC311_ALERTS_ENABLED: ${{ vars.NYC311_ALERTS_ENABLED }}
           NYC311_ALERT_WEBHOOK_URL: ${{ secrets.NYC311_ALERT_WEBHOOK_URL }}
           NYC311_ALERT_PCT_CHANGE_THRESHOLD: ${{ vars.NYC311_ALERT_PCT_CHANGE_THRESHOLD }}
@@ -51,7 +54,7 @@ jobs:
           python src/main.py
 
       - name: Upload generated artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: nyc-parking-violations-daily-report
           path: |
@@ -68,4 +71,3 @@ jobs:
           git add data/ reports/ README.md
           git commit -m "Update daily NYC parking violations report with charts and analysis" || echo "No changes to commit"
           git push
-

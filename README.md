@@ -192,6 +192,8 @@ Copy `.env.example` to `.env` and provide values for:
 - `NYC311_SODA3_ENDPOINT`
 - `NYC311_API_LIMIT`
 - `NYC311_API_TIMEOUT`
+- `NYC311_HTTP_RETRY_TOTAL`
+- `NYC311_HTTP_RETRY_BACKOFF_SECONDS`
 - `NYC311_ALERTS_ENABLED`
 - `NYC311_ALERT_WEBHOOK_URL`
 - `NYC311_ALERT_PCT_CHANGE_THRESHOLD`
@@ -377,10 +379,10 @@ This project is portfolio-ready because it demonstrates:
 <!-- LATEST_RUN_START -->
 ## Latest Automated Run
 
-- Report Date: 2026-08-01
+- Report Date: 2026-08-03
 - Total Records Pulled: 50,000
 - Open Amount Due: $636.94
-- New Records Pulled: 0
+- New Records Pulled: 12
 - Net Record Change: 0
 - Quality Checks Passed: 5
 - Quality Checks Failed: 1
@@ -396,7 +398,7 @@ This project is portfolio-ready because it demonstrates:
 ![Top Agencies](reports/charts/top_agencies.png)
 ![Camera vs Parking](reports/charts/camera_vs_parking.png)
 
-Latest report file: `/home/runner/work/NYC-Open-Parking-Violations-Daily-Report-Pipeline/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
+Latest report file: `C:/Users/big_j/PycharmProjects/NYC-Open-Parking-Violations-Daily-Report-Pipeline/reports/daily_report.md`
 <!-- LATEST_RUN_END -->
 
 

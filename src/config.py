@@ -19,6 +19,8 @@ DEFAULT_SODA2_ENDPOINT = "https://data.cityofnewyork.us/resource/nc67-uf89.json"
 DEFAULT_SODA3_ENDPOINT = "https://data.cityofnewyork.us/api/v3/views/nc67-uf89/query.json"
 DEFAULT_LIMIT = 50_000
 DEFAULT_TIMEOUT = 60
+DEFAULT_HTTP_RETRY_TOTAL = 4
+DEFAULT_HTTP_RETRY_BACKOFF_SECONDS = 2.0
 DEFAULT_ALERT_PCT_CHANGE_THRESHOLD = 50.0
 DEFAULT_ALERT_ABSOLUTE_COUNT_THRESHOLD = 5_000
 DEFAULT_ALERT_AMOUNT_PCT_CHANGE_THRESHOLD = 35.0
@@ -39,6 +41,8 @@ class AppConfig:
     soda3_endpoint: str
     limit: int
     timeout: int
+    http_retry_total: int
+    http_retry_backoff_seconds: float
     data_dir: Path = DATA_DIR
     raw_dir: Path = RAW_DIR
     processed_dir: Path = PROCESSED_DIR
@@ -93,6 +97,11 @@ def load_config() -> AppConfig:
         soda3_endpoint=os.getenv("NYC311_SODA3_ENDPOINT", DEFAULT_SODA3_ENDPOINT),
         limit=_get_int("NYC311_API_LIMIT", DEFAULT_LIMIT),
         timeout=_get_int("NYC311_API_TIMEOUT", DEFAULT_TIMEOUT),
+        http_retry_total=_get_int("NYC311_HTTP_RETRY_TOTAL", DEFAULT_HTTP_RETRY_TOTAL),
+        http_retry_backoff_seconds=_get_float(
+            "NYC311_HTTP_RETRY_BACKOFF_SECONDS",
+            DEFAULT_HTTP_RETRY_BACKOFF_SECONDS,
+        ),
         alerts_enabled=_get_bool("NYC311_ALERTS_ENABLED", False),
         alert_webhook_url=os.getenv("NYC311_ALERT_WEBHOOK_URL"),
         alert_pct_change_threshold=_get_float(
@@ -112,5 +121,4 @@ def load_config() -> AppConfig:
             DEFAULT_ALERT_ABSOLUTE_AMOUNT_THRESHOLD,
         ),
     )
-
 
