@@ -1,6 +1,6 @@
 # NYC Open Parking & Camera Violations Daily Report
 
-Report Date: 2026-10-20
+Report Date: 2026-10-21
 
 ## Dashboard & Charts
 
@@ -12,7 +12,7 @@ Report Date: 2026-10-20
 ## Executive Summary
 
 - Total Records Pulled: 50,000
-- New Records Pulled Since Yesterday: 13
+- New Records Pulled Since Yesterday: 0
 - Open Amount Due: $636.94
 - Total Fine Amount: $4,924,280.00
 - Total Penalties: $210,590.00
@@ -22,7 +22,7 @@ Report Date: 2026-10-20
 - Total Non-Camera Parking Violations: 50,000
 - Previous Snapshot Record Count: 50,000
 - Previous Snapshot Open Amount Due: $636.94
-- Resolved or Missing Since Yesterday: 13
+- Resolved or Missing Since Yesterday: 0
 - Net Record Change: 0
 - Open Amount Due Change: $0.00
 
@@ -144,8 +144,6 @@ _No anomalies detected for configured thresholds._
 
 | Violation Type                | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
 | ----------------------------- | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
-| PCKP DSCHRGE IN PRHBTD ZONE   | 182           | 0.00               | 180            | 0.00                | 2            | 0.00              |
-| MOBILE BUS LANE VIOLATION     | 43615         | 125.00             | 43617          | 125.00              | -2           | 0.00              |
 | ANGLE PARKING                 | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
 | BEYOND MARKED SPACE           | 1             | 45.00              | 1              | 45.00               | 0            | 0.00              |
 | EXPIRED MUNI METER            | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
@@ -154,6 +152,8 @@ _No anomalies detected for configured thresholds._
 | FRONT OR BACK PLATE MISSING   | 3             | 75.00              | 3              | 75.00               | 0            | 0.00              |
 | INSP. STICKER-EXPIRED/MISSING | 2             | 0.00               | 2              | 0.00                | 0            | 0.00              |
 | MISCELLANEOUS                 | 6             | 0.00               | 6              | 0.00                | 0            | 0.00              |
+| MISUSE PARKING PERMIT         | 1439          | 0.00               | 1439           | 0.00                | 0            | 0.00              |
+| MOBILE BUS LANE VIOLATION     | 43615         | 125.00             | 43615          | 125.00              | 0            | 0.00              |
 
 ## Data Quality Checks
 
