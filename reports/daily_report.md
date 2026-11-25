@@ -1,6 +1,6 @@
 # NYC Open Parking & Camera Violations Daily Report
 
-Report Date: 2026-11-24
+Report Date: 2026-11-25
 
 ## Dashboard & Charts
 
