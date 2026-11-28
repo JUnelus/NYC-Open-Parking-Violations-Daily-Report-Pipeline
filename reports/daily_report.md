@@ -1,6 +1,6 @@
 # NYC Open Parking & Camera Violations Daily Report
 
-Report Date: 2026-11-27
+Report Date: 2026-11-28
 
 ## Dashboard & Charts
 
@@ -14,10 +14,10 @@ Report Date: 2026-11-27
 - Total Records Pulled: 50,000
 - New Records Pulled Since Yesterday: 13
 - Open Amount Due: $636.94
-- Total Fine Amount: $4,925,050.00
-- Total Penalties: $210,605.00
+- Total Fine Amount: $4,924,435.00
+- Total Penalties: $210,630.00
 - Total Interest: $1,097.08
-- Total Payments Recorded: $4,933,792.18
+- Total Payments Recorded: $4,933,202.18
 - Total Camera Violations: 0
 - Total Non-Camera Parking Violations: 50,000
 - Previous Snapshot Record Count: 50,000
@@ -30,8 +30,8 @@ Report Date: 2026-11-27
 
 | Rank | Violation Type                 | Count | Amount Due |
 | ---- | ------------------------------ | ----- | ---------- |
-| 1    | MOBILE BUS LANE VIOLATION      | 43617 | 125.00     |
-| 2    | NO STAND TAXI/FHV RELIEF STAND | 2097  | 0.00       |
+| 1    | MOBILE BUS LANE VIOLATION      | 43618 | 125.00     |
+| 2    | NO STAND TAXI/FHV RELIEF STAND | 2096  | 0.00       |
 | 3    | MISUSE PARKING PERMIT          | 1439  | 0.00       |
 | 4    | FRAUDULENT USE PARKING PERMIT  | 1185  | 0.00       |
 | 5    | NO PARKING-EXC. DSBLTY PERMIT  | 583   | 191.94     |
@@ -47,8 +47,8 @@ Report Date: 2026-11-27
 | ---- | ------ | ----- | ---------- |
 | 1    | K      | 624   | 191.94     |
 | 2    | Q      | 500   | 150.00     |
-| 3    | MN     | 10396 | 125.00     |
-| 4    | NY     | 4239  | 115.00     |
+| 3    | MN     | 10398 | 125.00     |
+| 4    | NY     | 4238  | 115.00     |
 | 5    | BX     | 126   | 55.00      |
 
 ## Borough & County Breakdown
@@ -57,12 +57,12 @@ Report Date: 2026-11-27
 | ------- | ----- | ---------- |
 | K       | 624   | 191.94     |
 | Q       | 500   | 150.00     |
-| MN      | 10396 | 125.00     |
-| NY      | 4239  | 115.00     |
+| MN      | 10398 | 125.00     |
+| NY      | 4238  | 115.00     |
 | BX      | 126   | 55.00      |
-| Unknown | 16990 | 0.00       |
-| QN      | 8314  | 0.00       |
-| BK      | 8172  | 0.00       |
+| Unknown | 16983 | 0.00       |
+| QN      | 8318  | 0.00       |
+| BK      | 8174  | 0.00       |
 | R       | 430   | 0.00       |
 | ST      | 209   | 0.00       |
 
@@ -70,8 +70,8 @@ Report Date: 2026-11-27
 
 | Issuing Agency                     | Count | Amount Due |
 | ---------------------------------- | ----- | ---------- |
-| DEPARTMENT OF TRANSPORTATION       | 43991 | 125.00     |
-| TRAFFIC                            | 5703  | 0.00       |
+| DEPARTMENT OF TRANSPORTATION       | 43992 | 125.00     |
+| TRAFFIC                            | 5702  | 0.00       |
 | POLICE DEPARTMENT                  | 95    | 366.94     |
 | Unknown                            | 69    | 0.00       |
 | PARKS DEPARTMENT                   | 61    | 0.00       |
@@ -144,8 +144,8 @@ _No anomalies detected for configured thresholds._
 
 | Violation Type                 | Current Count | Current Amount Due | Previous Count | Previous Amount Due | Count Change | Amount Due Change |
 | ------------------------------ | ------------- | ------------------ | -------------- | ------------------- | ------------ | ----------------- |
-| NO STAND TAXI/FHV RELIEF STAND | 2097          | 0.00               | 2096           | 0.00                | 1            | 0.00              |
-| MOBILE BUS LANE VIOLATION      | 43617         | 125.00             | 43618          | 125.00              | -1           | 0.00              |
+| MOBILE BUS LANE VIOLATION      | 43618         | 125.00             | 43617          | 125.00              | 1            | 0.00              |
+| NO STAND TAXI/FHV RELIEF STAND | 2096          | 0.00               | 2097           | 0.00                | -1           | 0.00              |
 | ANGLE PARKING                  | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
 | BEYOND MARKED SPACE            | 1             | 45.00              | 1              | 45.00               | 0            | 0.00              |
 | EXPIRED MUNI METER             | 1             | 0.00               | 1              | 0.00                | 0            | 0.00              |
